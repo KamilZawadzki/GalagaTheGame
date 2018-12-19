@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 namespace Galaga
 {
@@ -11,7 +13,7 @@ namespace Galaga
     {
        // GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
+        StateManager manager;
         public Game1()
         {
             Globals.graphics = new GraphicsDeviceManager(this);
@@ -27,8 +29,8 @@ namespace Galaga
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            Globals.graphics.PreferredBackBufferWidth = 800;
-            Globals.graphics.PreferredBackBufferHeight = 1000;
+            Globals.graphics.PreferredBackBufferWidth = 700;
+            Globals.graphics.PreferredBackBufferHeight = 900;
             Globals.graphics.ApplyChanges();
             base.Initialize();
         }
@@ -40,8 +42,18 @@ namespace Galaga
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            Globals.defaultFont = Content.Load<SpriteFont>("font/emulogic");
+
+            Globals.spacekraft = Content.Load<Texture2D>("sprites/galaga");
+            Globals.bullet = Content.Load<Texture2D>("sprites/bullet");
+
+
+            Globals.bulletShotSoundEffect = Content.Load<SoundEffect>("sounds/fighter");
+
+            Globals.spriteBatch = new SpriteBatch(GraphicsDevice);
             Globals.screenSize = new Vector2(Globals.graphics.PreferredBackBufferWidth, Globals.graphics.PreferredBackBufferHeight);
+            manager = new StateManager();
             // TODO: use this.Content to load your game content here
         }
 
@@ -65,7 +77,7 @@ namespace Galaga
                 Exit();
 
             // TODO: Add your update logic here
-
+            manager.Update();            
             base.Update(gameTime);
         }
 
@@ -75,8 +87,7 @@ namespace Galaga
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
+                      
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
