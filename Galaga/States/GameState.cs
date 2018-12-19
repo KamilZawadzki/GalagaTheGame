@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,8 +11,10 @@ namespace Galaga.States
     class GameState : StateTemplate
     {
         Spacekraft spacekraft;
+        ArrayList backgroundItems;
         public GameState()
         {
+            backgroundItems = new ArrayList();
             spacekraft = new Spacekraft();
         }
         public void Draw()
@@ -19,7 +22,10 @@ namespace Galaga.States
             Globals.spriteBatch.Begin();
             //czarne tło first
             Globals.spriteBatch.Draw(Globals.spacekraft, new Rectangle(0, 0, (int)Globals.screenSize.X, (int)Globals.screenSize.Y), Color.Black);
-
+            
+                       
+                backgroundItems.Add(new BackgroundRectangle());
+            
             spacekraft.Draw();
 
             String highScore = "HIGH SCORE";
@@ -34,6 +40,14 @@ namespace Galaga.States
         public void Update()
         {            
             Draw();
+            for(int i = 0; i < backgroundItems.Count; i++)
+            {
+                BackgroundRectangle currentBackgroundRect = (BackgroundRectangle) backgroundItems[i];
+                currentBackgroundRect.Update();
+                if (currentBackgroundRect._position.Y > Globals.screenSize.Y)
+                    backgroundItems.Remove(currentBackgroundRect);
+            }
+            
             spacekraft.Update();
         }
     }
