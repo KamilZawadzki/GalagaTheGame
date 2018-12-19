@@ -9,12 +9,12 @@ namespace Galaga
     /// </summary>
     public class Game1 : Game
     {
-        GraphicsDeviceManager graphics;
+       // GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
         public Game1()
         {
-            graphics = new GraphicsDeviceManager(this);
+            Globals.graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
 
@@ -27,7 +27,9 @@ namespace Galaga
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            Globals.graphics.PreferredBackBufferWidth = 800;
+            Globals.graphics.PreferredBackBufferHeight = 1000;
+            Globals.graphics.ApplyChanges();
             base.Initialize();
         }
 
@@ -39,7 +41,7 @@ namespace Galaga
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            Globals.screenSize = new Vector2(Globals.graphics.PreferredBackBufferWidth, Globals.graphics.PreferredBackBufferHeight);
             // TODO: use this.Content to load your game content here
         }
 
