@@ -46,6 +46,7 @@ namespace Galaga
             Globals.defaultFont = Content.Load<SpriteFont>("font/emulogic");
 
             Globals.spacekraft = Content.Load<Texture2D>("sprites/galaga");
+            Globals.enemyship_1 = Content.Load<Texture2D>("sprites/ship_1");
             Globals.bullet = Content.Load<Texture2D>("sprites/bullet");
 
 
