@@ -56,14 +56,14 @@ namespace Galaga.States
 
 
 
-       static Vector2 z1 = new Vector2(Globals.screenSize.X / 2, 0);
-       static Vector2 z2= new Vector2(Globals.screenSize.X - Globals.screenSize.X * (float)1.5, Globals.screenSize.Y);
-       static Vector2 z3 = new Vector2( Globals.screenSize.X , Globals.screenSize.Y /5);
-        static Vector2 z4 = new Vector2(Globals.screenSize.X / 2, Globals.screenSize.Y/8);
+        static Vector2 z1 = new Vector2(Globals.screenSize.X / 2, 0);
+        static Vector2 z2 = new Vector2(Globals.screenSize.X - Globals.screenSize.X * (float)1.5, Globals.screenSize.Y);
+        static Vector2 z3 = new Vector2(Globals.screenSize.X, Globals.screenSize.Y / 5);
+        static Vector2 z4 = new Vector2(Globals.screenSize.X / 2, Globals.screenSize.Y / 8);
 
 
 
-        List<Vector2> points_1 = DrawBezier((float)0.001, z1,z2,z3,z4);
+        List<Vector2> points_1 = DrawBezier((float)0.001, z1, z2, z3, z4);
         Spacekraft spacekraft;
         Enemyship_1 enemyship_1;
         ArrayList backgroundItems;
@@ -72,7 +72,7 @@ namespace Galaga.States
             backgroundItems = new ArrayList();
             spacekraft = new Spacekraft();
             enemyship_1 = new Enemyship_1();
-            
+            Globals.enemy.Add(enemyship_1);
         }
         public void Draw()
         {
@@ -80,41 +80,45 @@ namespace Galaga.States
             //czarne tło first
             Globals.spriteBatch.Draw(Globals.spacekraft, new Rectangle(0, 0, (int)Globals.screenSize.X, (int)Globals.screenSize.Y), Color.Black);
             Globals.spriteBatch.Draw(Globals.enemyship_1, new Rectangle(0, 0, (int)Globals.screenSize.X, (int)Globals.screenSize.Y), Color.Black);
-                       
-                backgroundItems.Add(new BackgroundRectangle());
-            
+
+            backgroundItems.Add(new BackgroundRectangle());
+
             spacekraft.Draw();
-            enemyship_1.Draw();
             String highScore = "HIGH SCORE";
-            Globals.spriteBatch.DrawString(Globals.defaultFont, highScore, new Vector2((Globals.screenSize.X - Globals.defaultFont.MeasureString(highScore).X)/2, Globals.defaultFont.MeasureString(highScore).Y), Color.Red);
-            //TODO: store and download high score
+            Globals.spriteBatch.DrawString(Globals.defaultFont, highScore, new Vector2((Globals.screenSize.X - Globals.defaultFont.MeasureString(highScore).X) / 2, Globals.defaultFont.MeasureString(highScore).Y), Color.Red);
+            //TODO: store and load high score
             int points = 100000;
-            Globals.spriteBatch.DrawString(Globals.defaultFont, points.ToString(), new Vector2((Globals.screenSize.X - Globals.defaultFont.MeasureString(points.ToString()).X)/4, Globals.defaultFont.MeasureString(highScore).Y)*2, Color.White);
-                        
+            Globals.spriteBatch.DrawString(Globals.defaultFont, points.ToString(), new Vector2((Globals.screenSize.X - Globals.defaultFont.MeasureString(points.ToString()).X) / 4, Globals.defaultFont.MeasureString(highScore).Y) * 2, Color.White);
+
             Globals.spriteBatch.End();
         }
 
         public void Update()
-        {            
+        {
             Draw();
-            for(int i = 0; i < backgroundItems.Count; i++)
+            for (int i = 0; i < backgroundItems.Count; i++)
             {
-                BackgroundRectangle currentBackgroundRect = (BackgroundRectangle) backgroundItems[i];
+                BackgroundRectangle currentBackgroundRect = (BackgroundRectangle)backgroundItems[i];
                 currentBackgroundRect.Update();
                 if (currentBackgroundRect._position.Y > Globals.screenSize.Y)
                     backgroundItems.Remove(currentBackgroundRect);
             }
-            if(Globals.iteration_enemyship_1<points_1.Count)
+            if (Globals.iteration_enemyship_1 < points_1.Count)
             {
                 enemyship_1._position = points_1[Globals.iteration_enemyship_1];
+                enemyship_1._bounds = new Rectangle((int)enemyship_1._position.X, (int)enemyship_1._position.Y, Globals.spacekraft.Width, Globals.spacekraft.Height);
                 Globals.iteration_enemyship_1++;
             }
             else
             {
-               // Globals.iteration_enemyship_1 = 0;
+                // Globals.iteration_enemyship_1 = 0;
 
             }
-            enemyship_1.Update();
+            foreach (Enemyship_1 enemyship in Globals.enemy)
+            {
+                enemyship.Update();
+            }
+            Console.WriteLine(Globals.enemy.Count);
             spacekraft.Update();
         }
     }

@@ -24,16 +24,18 @@ namespace Galaga
 
         public void Draw()
         {
-            //Globals.spriteBatch.Begin();
+            Globals.spriteBatch.Begin();
             //Can replace _position with to get larger spacekraft
             //new Rectangle((int)_position.X,(int)_position.Y,40,40)
             Globals.spriteBatch.Draw(Globals.enemyship_1, _position, Color.White);
-           //  Globals.spriteBatch.End();
+           // Globals.spriteBatch.Draw(Globals.enemyship_1, _bounds, Color.Blue);
+            Globals.spriteBatch.End();
         }
 
         public void Update()
-        {    
-                _bounds = new Rectangle((int)_position.X, (int)_position.Y, Globals.spacekraft.Width, Globals.spacekraft.Height);
+        {
+            Draw();
+              //  _bounds = new Rectangle((int)_position.X, (int)_position.Y, Globals.spacekraft.Width, Globals.spacekraft.Height);
                 
         }
 

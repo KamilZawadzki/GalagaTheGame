@@ -52,11 +52,17 @@ namespace Galaga
                 instance.Play();
                 counterTimer = 0;
             }
+
             if (bullets.Count != 0)
             {
                 for (int i = 0; i < bullets.Count; i++)
                 {
                     Bullet currentBullet = (Bullet)bullets[i];
+                    if (currentBullet.killed)
+                    {
+                        bullets.Remove(currentBullet);
+                        continue;
+                    }
                     currentBullet.Update();
                     if ((int)currentBullet._position.Y < 0)
                     {
