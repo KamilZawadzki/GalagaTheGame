@@ -45,6 +45,7 @@ namespace Galaga
                 {
                     if (Globals.enemy.Count != 0)
                     {
+                        Globals.points.playerPoints += Globals.enemy[i].pointsForKill;
                         Globals.enemy.Remove(Globals.enemy[i]);
                         killed = true;
                     }

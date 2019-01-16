@@ -29,6 +29,8 @@ class Globals
         public static int iteration_enemyship_1=0;
         public List<Vector2> brezierpoints = new List<Vector2>();
         public static List<Enemyship_1> enemy = new List<Enemyship_1>();
+        
+        public static Points points;
 
     public enum enGameStates
         {

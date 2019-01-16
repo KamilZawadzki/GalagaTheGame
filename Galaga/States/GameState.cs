@@ -69,6 +69,7 @@ namespace Galaga.States
         ArrayList backgroundItems;
         public GameState()
         {
+            Globals.points = new Points();
             backgroundItems = new ArrayList();
             spacekraft = new Spacekraft();
             enemyship_1 = new Enemyship_1();
@@ -84,11 +85,13 @@ namespace Galaga.States
             backgroundItems.Add(new BackgroundRectangle());
 
             spacekraft.Draw();
-            String highScore = "HIGH SCORE";
-            Globals.spriteBatch.DrawString(Globals.defaultFont, highScore, new Vector2((Globals.screenSize.X - Globals.defaultFont.MeasureString(highScore).X) / 2, Globals.defaultFont.MeasureString(highScore).Y), Color.Red);
+            //String highScore = "HIGH SCORE";
+            String score = "SCORE";
+            //Globals.spriteBatch.DrawString(Globals.defaultFont, highScore, new Vector2((Globals.screenSize.X - Globals.defaultFont.MeasureString(highScore).X) / 2, Globals.defaultFont.MeasureString(highScore).Y), Color.Red);
+            Globals.spriteBatch.DrawString(Globals.defaultFont, score, new Vector2((Globals.screenSize.X - Globals.defaultFont.MeasureString(score).X) / 2, Globals.defaultFont.MeasureString(score).Y), Color.Red);
             //TODO: store and load high score
-            int points = 100000;
-            Globals.spriteBatch.DrawString(Globals.defaultFont, points.ToString(), new Vector2((Globals.screenSize.X - Globals.defaultFont.MeasureString(points.ToString()).X) / 4, Globals.defaultFont.MeasureString(highScore).Y) * 2, Color.White);
+            int points = Globals.points.playerPoints;
+            Globals.spriteBatch.DrawString(Globals.defaultFont, points.ToString(), new Vector2((Globals.screenSize.X - Globals.defaultFont.MeasureString(points.ToString()).X) / 4, Globals.defaultFont.MeasureString(score).Y) * 2, Color.White);
 
             Globals.spriteBatch.End();
         }

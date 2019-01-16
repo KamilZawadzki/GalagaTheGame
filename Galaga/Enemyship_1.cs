@@ -13,6 +13,7 @@ namespace Galaga
     {
 
         public Vector2 _position;
+        public int pointsForKill { get; } = 1000;
         public Rectangle _bounds { get; set; }
         public Enemyship_1()
         {
