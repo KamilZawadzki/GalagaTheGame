@@ -52,44 +52,73 @@ namespace Galaga.States
             return points;
         }
 
-
-
-
-
         static Vector2 z1 = new Vector2(Globals.screenSize.X / 2, 0);
         static Vector2 z2 = new Vector2(Globals.screenSize.X - Globals.screenSize.X * (float)1.5, Globals.screenSize.Y);
         static Vector2 z3 = new Vector2(Globals.screenSize.X, Globals.screenSize.Y / 5);
-        static Vector2 z4 = new Vector2(Globals.screenSize.X / 2, Globals.screenSize.Y / 8);
+        static Vector2 z4 = new Vector2(Globals.screenSize.X / (float)1.2, Globals.screenSize.Y / 8);
 
+        static Vector2 w1 = new Vector2(Globals.screenSize.X / 2, 0);
+        static Vector2 w2 = new Vector2(Globals.screenSize.X - Globals.screenSize.X * (float)1.5, Globals.screenSize.Y);
+        static Vector2 w3 = new Vector2(Globals.screenSize.X, Globals.screenSize.Y / 5);
+        static Vector2 w4 = new Vector2(Globals.screenSize.X / (float)1.2, Globals.screenSize.Y / 8);
 
+        static Vector2 z5 = new Vector2(Globals.screenSize.X / (float)1.2 - 40, Globals.screenSize.Y / 8);
+        static Vector2 z6 = new Vector2(Globals.screenSize.X / (float)1.2 - 80, Globals.screenSize.Y / 8);
+        static Vector2 z7 = new Vector2(Globals.screenSize.X / (float)1.2 - 120, Globals.screenSize.Y / 8);
+        static Vector2 z8 = new Vector2(Globals.screenSize.X / (float)1.2 - 160, Globals.screenSize.Y / 8);
+        static Vector2 z9 = new Vector2(Globals.screenSize.X / (float)1.2 - 200, Globals.screenSize.Y / 8);
+        static Vector2 z10 = new Vector2(Globals.screenSize.X / (float)1.2 - 240, Globals.screenSize.Y / 8);
+        static Vector2 z11 = new Vector2(Globals.screenSize.X / (float)1.2 - 280, Globals.screenSize.Y / 8);
+        static Vector2 z12 = new Vector2(Globals.screenSize.X / (float)1.2 - 320, Globals.screenSize.Y / 8);
+        static Vector2 z13 = new Vector2(Globals.screenSize.X / (float)1.2 - 360, Globals.screenSize.Y / 8);
+        static Vector2 z14 = new Vector2(Globals.screenSize.X / (float)1.2 - 400, Globals.screenSize.Y / 8);
+        static Vector2 z15 = new Vector2(Globals.screenSize.X / (float)1.2 - 440, Globals.screenSize.Y / 8);
+        static Vector2 z16 = new Vector2(Globals.screenSize.X / (float)1.2 - 480, Globals.screenSize.Y / 8);
 
-        List<Vector2> points_1 = DrawBezier((float)0.001, z1, z2, z3, z4);
+        static List<Vector2> points_1 = DrawBezier((float)0.0011, z1, z2, z3, z4);
+        static List<Vector2> points_2 = DrawBezier((float)0.0012, z1, z2, z3, z5);
+        static List<Vector2> points_3 = DrawBezier((float)0.0013, z1, z2, z3, z6);
+        static List<Vector2> points_4 = DrawBezier((float)0.0014, z1, z2, z3, z7);
+        static List<Vector2> points_5 = DrawBezier((float)0.0015, z1, z2, z3, z8);
+        static List<Vector2> points_6 = DrawBezier((float)0.0016, z1, z2, z3, z9);
+        static List<Vector2> points_7 = DrawBezier((float)0.0017, z1, z2, z3, z10);
+        static List<Vector2> points_8 = DrawBezier((float)0.0018, z1, z2, z3, z11);
+        static List<Vector2> points_9 = DrawBezier((float)0.0019, z1, z2, z3, z12);
+        static List<Vector2> points_10 = DrawBezier((float)0.00191, z1, z2, z3, z13);
+        static List<Vector2> points_11 = DrawBezier((float)0.00192, z1, z2, z3, z14);
+        static List<Vector2> points_12 = DrawBezier((float)0.00193, z1, z2, z3, z15);
+        static List<Vector2> points_13 = DrawBezier((float)0.00194, z1, z2, z3, z16);
+
+        List<List<Vector2>> points_list_for_flyin = new List<List<Vector2>> { points_1, points_2 , points_3, points_4, points_5, points_6, points_7, points_8, points_9, points_10, points_11, points_12, points_13};
         Spacekraft spacekraft;
-        Enemyship_1 enemyship_1;
+        Enemyship_1 enemyship_1, enemyship_2, enemyship_3, enemyship_4, enemyship_5, enemyship_6, enemyship_7, enemyship_8, enemyship_9, enemyship_10, enemyship_11;
         ArrayList backgroundItems;
         public GameState()
         {
             Globals.points = new Points();
             backgroundItems = new ArrayList();
             spacekraft = new Spacekraft();
-            enemyship_1 = new Enemyship_1();
-            Globals.enemy.Add(enemyship_1);
+
+            for(int i=0;i<13;i++)
+            {
+                Globals.enemy.Add(new Enemyship_1());
+            }
+           
         }
         public void Draw()
         {
             Globals.spriteBatch.Begin();
             //czarne tło first
             Globals.spriteBatch.Draw(Globals.spacekraft, new Rectangle(0, 0, (int)Globals.screenSize.X, (int)Globals.screenSize.Y), Color.Black);
-            Globals.spriteBatch.Draw(Globals.enemyship_1, new Rectangle(0, 0, (int)Globals.screenSize.X, (int)Globals.screenSize.Y), Color.Black);
-
             backgroundItems.Add(new BackgroundRectangle());
 
             spacekraft.Draw();
-            //String highScore = "HIGH SCORE";
+            for(int i=0;i<Globals.enemy.Count;i++)
+            {
+                Globals.enemy[i].Draw();
+            }
             String score = "SCORE";
-            //Globals.spriteBatch.DrawString(Globals.defaultFont, highScore, new Vector2((Globals.screenSize.X - Globals.defaultFont.MeasureString(highScore).X) / 2, Globals.defaultFont.MeasureString(highScore).Y), Color.Red);
             Globals.spriteBatch.DrawString(Globals.defaultFont, score, new Vector2((Globals.screenSize.X - Globals.defaultFont.MeasureString(score).X) / 2, Globals.defaultFont.MeasureString(score).Y), Color.Red);
-            //TODO: store and load high score
             int points = Globals.points.playerPoints;
             Globals.spriteBatch.DrawString(Globals.defaultFont, points.ToString(), new Vector2((Globals.screenSize.X - Globals.defaultFont.MeasureString(points.ToString()).X) / 4, Globals.defaultFont.MeasureString(score).Y) * 2, Color.White);
 
@@ -99,6 +128,14 @@ namespace Galaga.States
         public void Update()
         {
             Draw();
+            if(Globals.enemy.Count==0)
+            {
+                for (int i = 0; i < 13; i++)
+                {
+                    Globals.enemy.Add(new Enemyship_1());
+                }
+                Globals.iteration_for_points = 0;
+            }
             for (int i = 0; i < backgroundItems.Count; i++)
             {
                 BackgroundRectangle currentBackgroundRect = (BackgroundRectangle)backgroundItems[i];
@@ -106,21 +143,24 @@ namespace Galaga.States
                 if (currentBackgroundRect._position.Y > Globals.screenSize.Y)
                     backgroundItems.Remove(currentBackgroundRect);
             }
-            if (Globals.iteration_enemyship_1 < points_1.Count)
-            {
-                enemyship_1._position = points_1[Globals.iteration_enemyship_1];
-                enemyship_1._bounds = new Rectangle((int)enemyship_1._position.X, (int)enemyship_1._position.Y, Globals.spacekraft.Width, Globals.spacekraft.Height);
-                Globals.iteration_enemyship_1++;
-            }
-            else
-            {
-                // Globals.iteration_enemyship_1 = 0;
 
-            }
-            foreach (Enemyship_1 enemyship in Globals.enemy)
+            if(points_1.Count>Globals.iteration_for_points)
             {
-                enemyship.Update();
+                for(int i=0;i<Globals.enemy.Count;i++)
+                {
+                    var list = points_list_for_flyin[i];
+                    if(list.Count>Globals.iteration_for_points)
+                    {
+                        Globals.enemy[i]._position = list[Globals.iteration_for_points];
+                        Globals.enemy[i]._bounds = new Rectangle((int)Globals.enemy[i]._position.X, (int)Globals.enemy[i]._position.Y,
+                            Globals.enemyship_1.Width, Globals.enemyship_1.Height);
+                    }
+                 
+                }
+                Globals.iteration_for_points++;
             }
+
+     
             Console.WriteLine(Globals.enemy.Count);
             spacekraft.Update();
         }
