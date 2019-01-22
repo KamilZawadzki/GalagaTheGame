@@ -58,9 +58,22 @@ namespace Galaga.States
         static Vector2 z4 = new Vector2(Globals.screenSize.X / (float)1.2, Globals.screenSize.Y / 8);
 
         static Vector2 w1 = new Vector2(Globals.screenSize.X / 2, 0);
-        static Vector2 w2 = new Vector2(Globals.screenSize.X - Globals.screenSize.X * (float)1.5, Globals.screenSize.Y);
+        static Vector2 w2 = new Vector2(Globals.screenSize.X -100, Globals.screenSize.Y);
         static Vector2 w3 = new Vector2(Globals.screenSize.X, Globals.screenSize.Y / 5);
-        static Vector2 w4 = new Vector2(Globals.screenSize.X / (float)1.2, Globals.screenSize.Y / 8);
+        static Vector2 w4 = new Vector2(Globals.screenSize.X / (float)1.2, Globals.screenSize.Y / 6);
+
+        static Vector2 w5 = new Vector2(Globals.screenSize.X / (float)1.2 - 40, Globals.screenSize.Y / 6);
+        static Vector2 w6 = new Vector2(Globals.screenSize.X / (float)1.2 - 80, Globals.screenSize.Y / 6);
+        static Vector2 w7 = new Vector2(Globals.screenSize.X / (float)1.2 - 120, Globals.screenSize.Y / 6);
+        static Vector2 w8 = new Vector2(Globals.screenSize.X / (float)1.2 - 160, Globals.screenSize.Y / 6);
+        static Vector2 w9 = new Vector2(Globals.screenSize.X / (float)1.2 - 200, Globals.screenSize.Y / 6);
+        static Vector2 w10 = new Vector2(Globals.screenSize.X / (float)1.2 - 240, Globals.screenSize.Y / 6);
+        static Vector2 w11 = new Vector2(Globals.screenSize.X / (float)1.2 - 280, Globals.screenSize.Y / 6);
+        static Vector2 w12 = new Vector2(Globals.screenSize.X / (float)1.2 - 320, Globals.screenSize.Y / 6);
+        static Vector2 w13 = new Vector2(Globals.screenSize.X / (float)1.2 - 360, Globals.screenSize.Y / 6);
+        static Vector2 w14 = new Vector2(Globals.screenSize.X / (float)1.2 - 400, Globals.screenSize.Y / 6);
+        static Vector2 w15 = new Vector2(Globals.screenSize.X / (float)1.2 - 440, Globals.screenSize.Y / 6);
+        static Vector2 w16 = new Vector2(Globals.screenSize.X / (float)1.2 - 480, Globals.screenSize.Y / 6);
 
         static Vector2 z5 = new Vector2(Globals.screenSize.X / (float)1.2 - 40, Globals.screenSize.Y / 8);
         static Vector2 z6 = new Vector2(Globals.screenSize.X / (float)1.2 - 80, Globals.screenSize.Y / 8);
@@ -89,9 +102,22 @@ namespace Galaga.States
         static List<Vector2> points_12 = DrawBezier((float)0.00193, z1, z2, z3, z15);
         static List<Vector2> points_13 = DrawBezier((float)0.00194, z1, z2, z3, z16);
 
-        List<List<Vector2>> points_list_for_flyin = new List<List<Vector2>> { points_1, points_2 , points_3, points_4, points_5, points_6, points_7, points_8, points_9, points_10, points_11, points_12, points_13};
+        static List<Vector2> points2_1 = DrawBezier((float)0.0011, w1, w2, w3, w4);
+        static List<Vector2> points2_2 = DrawBezier((float)0.0012, w1, w2, w3, w5);
+        static List<Vector2> points2_3 = DrawBezier((float)0.0013, w1, w2, w3, w6);
+        static List<Vector2> points2_4 = DrawBezier((float)0.0014, w1, w2, w3, w7);
+        static List<Vector2> points2_5 = DrawBezier((float)0.0015, w1, w2, w3, w8);
+        static List<Vector2> points2_6 = DrawBezier((float)0.0016, w1, w2, w3, w9);
+        static List<Vector2> points2_7 = DrawBezier((float)0.0017, w1, w2, w3, w10);
+        static List<Vector2> points2_8 = DrawBezier((float)0.0018, w1, w2, w3, w11);
+        static List<Vector2> points2_9 = DrawBezier((float)0.0019, w1, w2, w3, w12);
+        static List<Vector2> points2_10 = DrawBezier((float)0.00191, w1, w2, w3, w13);
+        static List<Vector2> points2_11 = DrawBezier((float)0.00192, w1, w2, w3, w14);
+        static List<Vector2> points2_12 = DrawBezier((float)0.00193, w1, w2, w3, w15);
+        static List<Vector2> points2_13 = DrawBezier((float)0.00194, w1, w2, w3, w16);
+
+        List<List<Vector2>> points_list_for_flyin = new List<List<Vector2>> { points_1, points_2 , points_3, points_4, points_5, points_6, points_7, points_8, points_9, points_10, points_11, points_12, points_13, points2_1 , points2_2, points2_3, points2_4, points2_5, points2_6, points2_7, points2_8, points2_9, points2_10, points2_11, points2_12, points2_13};
         Spacekraft spacekraft;
-        Enemyship_1 enemyship_1, enemyship_2, enemyship_3, enemyship_4, enemyship_5, enemyship_6, enemyship_7, enemyship_8, enemyship_9, enemyship_10, enemyship_11;
         ArrayList backgroundItems;
         public GameState()
         {
@@ -99,7 +125,7 @@ namespace Galaga.States
             backgroundItems = new ArrayList();
             spacekraft = new Spacekraft();
 
-            for(int i=0;i<13;i++)
+            for(int i=0;i<26;i++)
             {
                 Globals.enemy.Add(new Enemyship_1());
             }
@@ -130,7 +156,7 @@ namespace Galaga.States
             Draw();
             if(Globals.enemy.Count==0)
             {
-                for (int i = 0; i < 13; i++)
+                for (int i = 0; i < 26; i++)
                 {
                     Globals.enemy.Add(new Enemyship_1());
                 }
